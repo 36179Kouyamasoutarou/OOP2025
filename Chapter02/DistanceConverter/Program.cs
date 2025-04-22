@@ -24,24 +24,21 @@ namespace DistanceConverter {
 
         }
 
-        static void PrintMeterToFeetList(int start, int end) {
 
+        static void PrintFeetToMeter(int start, int end) {
+            FeetConverter converter = new FeetConverter();
             for (int feet = start; feet <= end; feet++) {
-
-                double meter = FeetToMeter(feet);
-
+                double meter = converter.ToMeter(feet);
                 Console.WriteLine($"{feet}ft = {meter:0.0000}m");
 
             }
 
         }
 
-        static void PrintFeetToMeter(int start, int end) {
-
+        static void PrintMeterToFeetList(int start, int end) {
+            FeetConverter converter = new FeetConverter();
             for (int meter = start; meter <= end; meter++) {
-
-                double feet = MeterToFeet(meter);
-
+                double feet = converter.FromMeter(meter);
                 Console.WriteLine($"{meter}m = {feet:0.0000}ft");
 
             }
