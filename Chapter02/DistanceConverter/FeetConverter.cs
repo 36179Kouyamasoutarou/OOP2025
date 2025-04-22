@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DistanceConverter {
-    public class FeetConverter {
-    public  double FromMeter(double meter) {
-            return meter / 0.3048;
-        }
+    public static class FeetConverter {
 
+        //定数
+        private const double ratio = 0.3048;
+
+        //メートルからフィートを求める
+        public static double FromMeter(double meter) {
+            return meter / 0.3084;
+        }
         //フィートからメートルを求める
-        public double ToMeter(double feet) {
+        public static double ToMeter(double feet) {
             return feet * 0.3048;
-
         }
-
-    
     }
 }
