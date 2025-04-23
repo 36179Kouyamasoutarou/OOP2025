@@ -9,11 +9,11 @@ namespace Exercise02 {
 
         const double ratio = 0.0254;
 
-        //メートルからフィートを求める
+        //メートルからインチを求める
         public static double FromMeter(double meter) {
             return meter / ratio;
         }
-        //フィートからメートルを求める
+        //インチからメートルを求める
         public static double ToMeter(double feet) {
             return feet * ratio;
         }
