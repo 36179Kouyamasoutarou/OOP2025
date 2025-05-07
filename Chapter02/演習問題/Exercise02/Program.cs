@@ -8,26 +8,19 @@ namespace Exercise02 {
 
         static void Main(string[] args) {
 
-            Console.WriteLine("1:インチからメートル");
+            Console.WriteLine("1:ヤードからメートル");
 
-            Console.WriteLine("2:メートルからインチ");
+            Console.WriteLine("2:メートルからヤード");
 
             Console.Write("＞");
 
             int con = int.Parse(Console.ReadLine());
 
-            Console.Write("はじめ：");
-
-            int start = int.Parse(Console.ReadLine());
-
-            Console.Write("終わり：");
-
-            int end = int.Parse(Console.ReadLine());
-
+            
 
             if (con == 1) {
 
-                PrintInchToMeterList(start, end);
+                PrintInchToMeterList();
 
             } else {
 
