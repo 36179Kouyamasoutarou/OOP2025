@@ -8,8 +8,8 @@
     new Song("Close To You", "Carpenters", 276),
     new Song("Honesty", "Billy Joel", 231),
     new Song("I Will Always Love You", "Whitney Houston", 273),
-};
-
+        };
+            printSongs(songs);
 
 
 
@@ -23,7 +23,11 @@
                 var seconds = song.Length % 60;
                 Console.WriteLine($"{song.Title},{song.ArtistName}{minutes}:{seconds:00}");
             }
-            Console.WriteLine();
+            //TimeSpan構造体を使った場合
+            foreach(var song in songs) {
+                var timespan = TimeSpan.FromSeconds(song.Length);
+                Console.WriteLine($"{song.Title},{song.ArtistName} {timespan.Minutes}:{timespan.Seconds:00}");
+            }
 
         }
     }
