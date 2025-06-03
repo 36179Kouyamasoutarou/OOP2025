@@ -32,7 +32,13 @@ namespace Exercise03 {
         }
 
         private static void Exercise3(string text) {
-            //やらなくてよい
+            var array = text.Split(' ');
+            var sb = new StringBuilder(array[0]);
+            foreach(var word in array.Skip(1)) {
+                sb.Append("");
+                sb.Append(word);
+            }
+            
         }
 
         private static void Exercise4(string text) {

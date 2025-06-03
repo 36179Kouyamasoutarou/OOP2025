@@ -7,7 +7,7 @@
 
             var word = array[0].Split('=');
             var jpName = ToJapanese(word[0]);
-
+                
             }
 
 
@@ -21,7 +21,19 @@
         /// <returns>"「作家」,「代表作」,「誕生年」</returns>
         static string ToJapanese(string key) {
 
-            return ""; //エラーをなくすためのダミー
+            switch (key) {
+                default:
+                    break;
+            }
+
+
+            var retText = key switch {
+                "Novelist" => "作家",
+                "BestWork" => "代表作",
+                "Born" => "誕生年",　
+                => "引き数Keyは、正しい値ではありません。"
+            };
+            return retText;
         }
     }
 }
