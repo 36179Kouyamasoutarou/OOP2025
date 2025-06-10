@@ -14,6 +14,7 @@ namespace Exercise01{
             Year = year;
             Month = month;
         }
+
         //5.1.2
         //設定されている西暦が21世紀か判定する
         //Yearが2001～2100年の間ならtrue、それ以外ならfalseを返す
