@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace Test01 {
     public class Student {
+        internal string StudentName;
+        internal int Amount;
+
         //学生の名前
         public string Name { get; set; }= string.Empty;
         //科目名
         public string Subject { get; set; } = string.Empty;
         //引数
         public int Score { get; set; }
-
-
+        public string ProductCategory { get; internal set; }
     }
 }
