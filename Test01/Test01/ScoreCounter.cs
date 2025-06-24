@@ -14,7 +14,7 @@
             var lines = File.ReadAllLines(filePath);
             foreach (var line in lines) {
                 var items = line.Split(',');
-                
+                //Saleオブジェクトを生成
                 var score = new Student() {
                     StudentName = items[0],
                     ProductCategory = items[1],
