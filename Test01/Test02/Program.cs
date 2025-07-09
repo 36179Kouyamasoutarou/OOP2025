@@ -1,5 +1,7 @@
 ﻿
 
+using System.Globalization;
+
 namespace Test02 {
     internal class Program {
         static void Main(string[] args) {
@@ -63,6 +65,7 @@ namespace Test02 {
         //問題１　合計値を表示（式形式で記述せよ）
         //　　　　出力結果【618】
         private static void Exercise01(int[] numbers) => Console.WriteLine(numbers.Sum());
+        
 
 
         //問題２　偶数の最大値を表示（式形式で記述せよ）
@@ -73,8 +76,13 @@ namespace Test02 {
         //問題３　昇順に並べて表示（遅延実行とする）
         //　　　　出力結果【12 14 17 20 31 35 40 48 53 76 87 91 94】
         private static void Exercise03(int[] numbers) {
-            
+            var selected = numbers
 
+                .OrderByDescending(static b => b.book);
+            foreach (var book in selected) {
+                Console.WriteLine("{0} {1}");
+
+            }
         }
 
         //問題４　10以上50以下の数字のみを表示（即時実行でも可とする）
