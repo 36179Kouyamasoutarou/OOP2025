@@ -182,7 +182,7 @@ namespace CarReportSystem {
 
         //ファイルオープン処理
         private void reportOpenFile() {
-            if(ofdReportFileOpen.ShowDialog() == DialogResult.OK) {
+            if (ofdReportFileOpen.ShowDialog() == DialogResult.OK) {
                 try {
                     //逆シリアル化でバイナリ形式を取り込む
 #pragma warning disable SYSLIB0011 // 型またはメンバーが旧型式です
@@ -240,5 +240,7 @@ namespace CarReportSystem {
         private void 開くToolStripMenuItem_Click(object sender, EventArgs e) {
             reportOpenFile(); //ファイルオープン処理
         }
+        //フォームが閉じたら呼ばれる
+        private void Form1_FormClosed(object sender)
     }
 }

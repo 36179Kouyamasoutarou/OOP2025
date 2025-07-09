@@ -268,6 +268,7 @@
             dgvRecord.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvRecord.Size = new Size(656, 192);
             dgvRecord.TabIndex = 5;
+            dgvRecord.CellContentClick += dgvRecord_CellContentClick;
             dgvRecord.Click += dgvRecord_Click;
             // 
             // pbPicture
@@ -386,39 +387,39 @@
             // hirakuToolStripMenuItem
             // 
             hirakuToolStripMenuItem.Name = "hirakuToolStripMenuItem";
-            hirakuToolStripMenuItem.Size = new Size(180, 22);
+            hirakuToolStripMenuItem.Size = new Size(140, 22);
             hirakuToolStripMenuItem.Text = "開く...";
             hirakuToolStripMenuItem.Click += 開くToolStripMenuItem_Click;
             // 
             // 保存ToolStripMenuItem
             // 
             保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
-            保存ToolStripMenuItem.Size = new Size(180, 22);
+            保存ToolStripMenuItem.Size = new Size(140, 22);
             保存ToolStripMenuItem.Text = "保存...";
             保存ToolStripMenuItem.Click += 保存ToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(137, 6);
             // 
             // 色設定ToolStripMenuItem
             // 
             色設定ToolStripMenuItem.Name = "色設定ToolStripMenuItem";
-            色設定ToolStripMenuItem.Size = new Size(180, 22);
+            色設定ToolStripMenuItem.Size = new Size(140, 22);
             色設定ToolStripMenuItem.Text = "色設定...";
             色設定ToolStripMenuItem.Click += 色設定ToolStripMenuItem_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(177, 6);
+            toolStripSeparator2.Size = new Size(137, 6);
             // 
             // tsmiExit
             // 
             tsmiExit.Name = "tsmiExit";
             tsmiExit.ShortcutKeys = Keys.Alt | Keys.F4;
-            tsmiExit.Size = new Size(180, 22);
+            tsmiExit.Size = new Size(140, 22);
             tsmiExit.Text = "終了";
             tsmiExit.Click += tsmiExit_Click;
             // 
