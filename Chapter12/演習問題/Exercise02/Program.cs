@@ -18,7 +18,13 @@ namespace Exercise02 {
         }
 
         static Novelist? Deserialize(string jsonString) {
-            return JsonSerializer.Deserialize<Novelist>(jsonString);
+            var opitions = new JsonSerializerOptions {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals|
+                                 JsonNumberHandling.AllowReadingFromString
+            };
+            var novelist = JsonSerializer.Deserialize<Novelist>(jsonString,opitions);
+            return novelist;
         }
     }
 
