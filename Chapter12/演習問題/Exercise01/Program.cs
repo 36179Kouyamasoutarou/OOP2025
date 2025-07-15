@@ -73,23 +73,20 @@ namespace Exercise01 {
                 byte[] utf8Bytes = JsonSerializer.SerializeToUtf8Bytes(employees, options);
                 File.WriteAllBytes(filePath, utf8Bytes);
             }
-        
 
         //問題12.1.3
         // ファイルからデシリアライズする
         static Employee[] Deserialize_f(string filePath) {
-            try {
+           
                 var options = new JsonSerializerOptions {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase, // キャメルケース
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+                    WriteIndented = true
                 };
-
-                // ファイルから読み込む
-                string jsonString = File.ReadAllText(filePath);
-                return JsonSerializer.Deserialize<Employee[]>(jsonString, options) ?? Array.Empty<Employee>();
-            }
-            catch (Exception ex) {
-                Console.WriteLine($"ファイル読み込みエラー: {ex.Message}");
-                return Array.Empty<Employee>();
+            var text = File.ReadAllText(filePath);
+            var employees = JsonSerializer.Deserialize<Employee[]>(text, options);
+            return employees ?? [];
+               
             }
         }
     }
