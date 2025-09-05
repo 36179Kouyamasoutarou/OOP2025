@@ -31,5 +31,12 @@ namespace SampleApplication {
        
         }
 
+        private void checkBox_Checked(object sender, RoutedEventArgs e) {
+            checkBoxTextBlock.Text = "チェック済み";
+        }
+
+        private void checkBox_Unchecked(object sender, RoutedEventArgs e) {
+            checkBoxTextBlock.Text = "未チェック";
+        }
     }
 }

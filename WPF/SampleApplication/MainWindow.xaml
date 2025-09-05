@@ -32,8 +32,7 @@
         <TextBlock Grid.Column="2" Text="設定値" />
         <Label Grid.Row="1" Content="ON/OFF(_O)" Target="{Binding ElementName=checkBox, Mode=OneWay}"/>
         <CheckBox x:Name="checkBox" Grid.Row="1" Grid.Column="1" Content="チェックしたらON" 
-
-                  VerticalAlignment="Center"/>
+                  VerticalAlignment="Center" Checked="checkBox_Checked" Unchecked="checkBox_Unchecked"/>
         <TextBlock x:Name="checkBoxTextBlock" Grid.Row="1" Grid.Column="2"
 
                    VerticalAlignment="Center"/>
