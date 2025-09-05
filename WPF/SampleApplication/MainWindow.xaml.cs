@@ -21,6 +21,15 @@ namespace SampleApplication {
         public MainWindow() {
             InitializeComponent();
         }
+        private void seasonComboBox_SelectionChanged(object sender, SelectedCellsChangedEventArgs e) {
+            seasonComboBox.Text = (string)((ComboBoxItem)(seasonComboBox.SelectedItem)).Content;
+        }
+       
+        
+        private void colorRadioButton_Checked(object sender, RoutedEventArgs e) {
+            colorText.Text = (string)((RadioButton)(sender)).Content;
+       
+        }
 
     }
 }
