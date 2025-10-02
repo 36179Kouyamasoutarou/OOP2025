@@ -12,7 +12,7 @@ namespace HelloWorld
     {
         public ViewModel() {
             ChangeMessageCommand = new DelegateCommand(
-                () => GreetingMessage = "Paipai-World");
+                () => GreetingMessage = "Hello-World");
 
 
         }
