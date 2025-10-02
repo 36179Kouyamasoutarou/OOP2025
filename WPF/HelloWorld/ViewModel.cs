@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HelloWorld
 {
-    class ViewModel : INotifyPropertyChanged
+    class ViewModel : BindableBase
     {
         public ViewModel() {
             ChangeMessageCommand = new DelegateCommand(
@@ -18,17 +19,12 @@ namespace HelloWorld
         private string _greetingMessage = "HelloMessage";
         public string GreetingMessage {
             get=>_greetingMessage;
-            set {
-                if (_greetingMessage != value) {
-                    _greetingMessage = value;
-                    PropertyChanged?.Invoke(
-                        this, new PropertyChangedEventArgs(nameof(GreetingMessage)));
-                }
-                }
+            set => SetProperty(ref _greetingMessage, value);
+       
             }
 
         public DelegateCommand ChangeMessageCommand { get; }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+     
     }
 }
