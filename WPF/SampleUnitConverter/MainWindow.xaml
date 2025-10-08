@@ -12,7 +12,8 @@
         <StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBox Width="100" Margin="4" Text="{Binding MetricValue,StringFormat={}{0:N3}}"/>
-            <ComboBox Width="80" Margin="4"/>
+            <ComboBox Width="80" Margin="4" ItemsSource="{Binding Source={x:Static local:MetricUnit.Units}}"/>
+            
         </StackPanel>
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -22,7 +23,7 @@
 
         <StackPanel Orientation="Horizontal">
             <TextBox Width="100" Margin="4" Text="{Binding MetricValue,StringFormat={}{0:N3}}"/>
-            <ComboBox Width="80" Margin="4"/>
+            <ComboBox Width="80" Margin="4" ItemsSource="{Binding Source={x:Static local:ImperialUnit.Units}}"/>
         </StackPanel>
     </StackPanel>
 </Window>
