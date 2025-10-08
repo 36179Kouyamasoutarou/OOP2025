@@ -9,14 +9,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HelloWorld {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window {
-        public MainWindow() {
-            InitializeComponent();
-            //DataContext = new ViewModel();
-        }
+namespace SampleUnitConverter;
+
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : Window{
+    public MainWindow(){
+        InitializeComponent();
     }
 }
