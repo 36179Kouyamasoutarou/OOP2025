@@ -1,6 +1,6 @@
 ﻿using Sample.Data;
 using SQLite;
-using System;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,16 +17,20 @@ namespace Sample {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
-        private List<Person> _persons = new List<Person>();
+        private ObservableCollection<Person> _persons = new ObservableCollection <Person>();
+
         public MainWindow() {
             InitializeComponent();
-
-            //_persons.Add(new Person { Id = 10, Name = "岩村ベジタブルタロウ", Phone = "4554" });
-            //_persons.Add(new Person { Id = 12, Name = "岩村ベジタブルタロウ", Phone = "4554" });
-            //_persons.Add(new Person { Id = 13, Name = "岩村ベジタブルタロウ", Phone = "4554" });
-
+            //ReadDatabase();
+            _persons.Add(new Person { Id = 1, Name = "岩村ベースサービス", Phone = "123456" });
             PersonListView.ItemsSource = _persons;
+        }
 
+        private void ReadDatabase() {
+            using (var connection = new SQLiteConnection(App.databasePath)) {
+                connection.CreateTable<Person>();
+                //_persons = connection.Table<Person>().ToList();
+            }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e) {
@@ -34,24 +38,16 @@ namespace Sample {
                 Name = NameTextBox.Text,
                 Phone = PhoneTextBox.Text,
             };
-
-
-            using(var connection = new SQLiteConnection(App.databasePath)) {
+            using (var connection = new SQLiteConnection(App.databasePath)) {
                 connection.CreateTable<Person>();
                 connection.Insert(person);
             }
-
-
         }
-
         private void ReadButton_Click(object sender, RoutedEventArgs e) {
-            
+            _persons.Add(new Person { Id = 1, Name = "岩村ベースサービス", Phone = "78910" });
 
-            using (var connection = new SQLiteConnection(App.databasePath)) {
-                connection.CreateTable<Person>();
-                var persons = connection.Table<Person>().ToList();
+            //ReadDatabase();
 
-            }
         }
     }
 }
