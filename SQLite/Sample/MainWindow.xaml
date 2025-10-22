@@ -10,11 +10,11 @@
         <StackPanel Margin="10">
             <TextBox x:Name="NameTextBox"/>
             <TextBox x:Name="PhoneTextBox"/>
+            <Button Content="更新" x:Name="UpdateButton" Click="UpdateButton_Click"/>
             <Button Content="保存" x:Name="SaveButton" Click="SaveButton_Click"/>
             <Button Content="取得" x:Name="ReadButton" Click="ReadButton_Click"/>
             <Button Content="削除" x:Name="DeleteButton" Click="DeleteButton_Click"/>
-            <Button Content="更新" x:Name="UpdateButton" Click="UpdateButton_Click"/>
-            <TextBox x:Name="SerchTextBox" Margin="0,5,0,0" FontSize="20" TextChanged="SerchTextBox_TextChanged"/>
+            <TextBox x:Name="SearchTextBox" Margin="0,5,0,0" FontSize="20" TextChanged="SearchTextBox_TextChanged"/>
             <ListView x:Name="PersonListView" Margin="0,5,0,0" Height="600" SelectionChanged="PersonListView_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate>

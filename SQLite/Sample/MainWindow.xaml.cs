@@ -24,7 +24,6 @@ namespace Sample {
             InitializeComponent();
             ReadDatabase();
 
-
             PersonListView.ItemsSource = _persons;
         }
 
@@ -68,24 +67,27 @@ namespace Sample {
                 PersonListView.ItemsSource = _persons;
             }
         }
+
         //リストビューのフィルタリング
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e) {
-            var filterList = _persons.Where(p => p.Name.Contains(SerchTextBox.Text));
-        
-                
+            var filterList = _persons.Where(p => p.Name.Contains(SearchTextBox.Text));
+
             PersonListView.ItemsSource = filterList;
         }
 
+        //リストビューから１レコード選択
         private void PersonListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             var selectedPerson = PersonListView.SelectedItem as Person;
             if (selectedPerson is null) return;
             NameTextBox.Text = selectedPerson.Name;
             PhoneTextBox.Text = selectedPerson.Phone;
+
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e) {
             var selectedPerson = PersonListView.SelectedItem as Person;
             if (selectedPerson is null) return;
+            
             using (var connection = new SQLiteConnection(App.databasePath)) {
                 connection.CreateTable<Person>();
 
@@ -94,8 +96,9 @@ namespace Sample {
                     Name = NameTextBox.Text,
                     Phone = PhoneTextBox.Text,
                 };
-
                 connection.Update(person);
+                
+                ReadDatabase();
                 PersonListView.ItemsSource = _persons;
             }
         }
