@@ -23,10 +23,21 @@
         ///  the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            button1 = new Button();
             statusStrip1 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
             statusStrip1.SuspendLayout();
             SuspendLayout();
+            // 
+            // button1
+            // 
+            button1.Location = new Point(104, 40);
+            button1.Name = "button1";
+            button1.Size = new Size(117, 39);
+            button1.TabIndex = 0;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // statusStrip1
             // 
@@ -49,6 +60,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(475, 199);
             Controls.Add(statusStrip1);
+            Controls.Add(button1);
             Name = "Form1";
             Text = "Form1";
             statusStrip1.ResumeLayout(false);
@@ -58,6 +70,8 @@
         }
 
         #endregion
+
+        private Button button1;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel toolStripStatusLabel1;
     }
