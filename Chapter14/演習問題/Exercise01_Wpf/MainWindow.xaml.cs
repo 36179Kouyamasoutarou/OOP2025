@@ -13,9 +13,21 @@ namespace Exercise01_Wpf {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e) {
+            TextArea.Text = await TextRenderSample.ReadTextAsync("吾輩は猫である");
+        }
+    }
+
+    //非同期のファイル読み込み処理
+    static class TextReaderSample {
+        public static async Task<string>ReadTextAsync(string filePath) {
+
         }
     }
 }
