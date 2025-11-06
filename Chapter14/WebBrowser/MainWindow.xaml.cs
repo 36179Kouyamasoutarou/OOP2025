@@ -16,8 +16,7 @@ namespace WebBrowser;
 /// </summary>
 public partial class MainWindow : Window
 {
-    public MainWindow()
-    {
+    public MainWindow(){
         InitializeComponent();
     }
 
@@ -30,6 +29,9 @@ public partial class MainWindow : Window
     }
 
     private void GoButton_Click(object sender, RoutedEventArgs e) {
+        var url = AddressBar.Text.Trim();
+        if (string.IsNullOrWhiteSpace(url)) return;
 
+        WebView.Source = new Uri(url);
     }
 }
