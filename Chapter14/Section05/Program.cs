@@ -6,7 +6,7 @@ namespace Section05 {
             Code14_20.Run2();
         }
 
-public class Code14_20 {
+        public class Code14_20 {
 
             public static async Task Run() {
                 var sw = Stopwatch.StartNew();
@@ -54,8 +54,6 @@ public class Code14_20 {
                         yield return i;
                 }
             }
-        }
-    }
         }
     }
 }
