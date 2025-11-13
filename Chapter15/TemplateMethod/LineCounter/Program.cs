@@ -3,8 +3,8 @@
 namespace LineCounter {
     internal class Program {
         static void Main(string[] args) {
-            string path =
-            TextProcessor.Run<LineCounterProcessor>(args[0]);
+            string path = @"C:\Users\infosys\repos\OOP2025\Chapter06\Section03\Program.cs";
+            TextProcessor.Run<LineCounterProcessor>(path);
         }
     }
 }
