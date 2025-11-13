@@ -18,6 +18,7 @@ namespace DistanceConverter {
         //フィートからメートルを求める
         public static double ToMeter(double feet) {
             return feet * ratio;
+
         }
     }
 }
