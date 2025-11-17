@@ -24,7 +24,7 @@ namespace DistanceConverter {
             return value.Value;
         }
 
-        // 単位を入力してもらい、対応するConverterを返す
+        // 単位を入力してもらい、対応するConverterをかえす
         static ConverterBase GetConverter(string msg) {
             ConverterBase? converter = null;
             do {
