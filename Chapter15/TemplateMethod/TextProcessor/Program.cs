@@ -1,7 +1,11 @@
 ﻿namespace TextProcessor {
     internal class Program {
         static void Main(string[] args) {
-            Console.WriteLine("Hello, World!");
+            var service = new LineCounterService();
+            var prcessor = new TextFileProcessor(service);
+            Console.Write("パスの入力:");
+
+            prcessor.Run(Console.ReadLine());
         }
     }
 }
