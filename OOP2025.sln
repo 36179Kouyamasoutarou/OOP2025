@@ -245,7 +245,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Section01", "Chapter15\Sect
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TemplateMethod", "TemplateMethod", "{40515082-9AD4-4D54-99E9-01D30AAF9C4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextProcessor", "Chapter15\TemplateMethod\TextProcessor\TextProcessor.csproj", "{C9D6A057-C1E6-4026-A98E-14C06F5615B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileProcessor", "Chapter15\TemplateMethod\TextProcessor\TextFileProcessor.csproj", "{C9D6A057-C1E6-4026-A98E-14C06F5615B1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LineCounter", "Chapter15\TemplateMethod\LineCounter\LineCounter.csproj", "{73233EA9-214C-4903-ADCC-584BF1BD808A}"
 EndProject
