@@ -1,12 +1,107 @@
 ﻿<Window x:Class="TenkiApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TenkiApp"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:vm="clr-namespace:TenkiApp.ViewModel"
+        Title="TenkiApp" Height="550" Width="360"
+        WindowStartupLocation="CenterScreen"
+        Background="{Binding BackgroundBrush}">
 
+    <Window.DataContext>
+        <vm:WeatherViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <!-- アニメーション -->
+        <Storyboard x:Key="CardFadeInStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             From="0" To="1" Duration="0:0:0.9"/>
+            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                             From="0.95" To="1" Duration="0:0:0.9"/>
+            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                             From="0.95" To="1" Duration="0:0:0.9"/>
+        </Storyboard>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- タイトル -->
+        <TextBlock Text="現在の天気"
+                   FontSize="26"
+                   FontWeight="Bold"
+                   Foreground="#333"
+                   HorizontalAlignment="Center"
+                   Margin="0 0 0 20"/>
+
+        <!-- 都道府県選択 -->
+        <ComboBox Grid.Row="0" Margin="0 50 0 0"
+                  ItemsSource="{Binding PrefectureList}"
+                  SelectedItem="{Binding SelectedPrefecture}"
+                  HorizontalAlignment="Center"
+                  Width="200"/>
+
+        <!-- 天気カード -->
+        <Border Grid.Row="1"
+                x:Name="MainCard"
+                Background="White"
+                CornerRadius="25"
+                Padding="20"
+                Opacity="0"
+                RenderTransformOrigin="0.5,0.5">
+            <Border.RenderTransform>
+                <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+            </Border.RenderTransform>
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <!-- 天気絵文字 -->
+                <TextBlock Text="{Binding WeatherEmoji}"
+                           FontSize="80"
+                           HorizontalAlignment="Center"
+                           Margin="0 0 0 10"/>
+
+                <TextBlock Text="{Binding Time}"
+                           FontSize="16"
+                           Foreground="#666"
+                           Margin="0 0 0 15"
+                           HorizontalAlignment="Center"/>
+
+                <!-- 気温 -->
+                <StackPanel Orientation="Horizontal" Margin="0 10">
+                    <TextBlock Text="🌡 気温：" FontSize="20"/>
+                    <TextBlock Text="{Binding Temperature}" FontSize="22" FontWeight="Bold"/>
+                    <TextBlock Text=" ℃" FontSize="20"/>
+                </StackPanel>
+
+                <!-- 風速 -->
+                <StackPanel Orientation="Horizontal" Margin="0 10">
+                    <TextBlock Text="🌬 風速：" FontSize="20"/>
+                    <TextBlock Text="{Binding WindSpeed}" FontSize="22" FontWeight="Bold"/>
+                    <TextBlock Text=" m/s" FontSize="20"/>
+                </StackPanel>
+
+                <!-- 湿度 -->
+                <StackPanel Orientation="Horizontal" Margin="0 10">
+                    <TextBlock Text="💧 湿度：" FontSize="20"/>
+                    <TextBlock Text="{Binding Humidity}" FontSize="22" FontWeight="Bold"/>
+                    <TextBlock Text=" %" FontSize="20"/>
+                </StackPanel>
+
+                <!-- 更新ボタン -->
+                <Button Content="更新"
+                        Command="{Binding FetchWeatherCommand}"
+                        CommandParameter="{Binding SelectedPrefecture}"
+                        Background="#4A90E2"
+                        Foreground="White"
+                        Padding="12 6"
+                        FontWeight="Bold"
+                        Margin="20"
+                        BorderThickness="0"
+                        HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
