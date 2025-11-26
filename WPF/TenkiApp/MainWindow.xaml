@@ -1,107 +1,189 @@
 ﻿<Window x:Class="TenkiApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="clr-namespace:TenkiApp.ViewModel"
-        Title="TenkiApp" Height="550" Width="360"
-        WindowStartupLocation="CenterScreen"
-        Background="{Binding BackgroundBrush}">
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TenkiApp"
+        xmlns:viewmodel="clr-namespace:TenkiApp.ViewModel"
+        mc:Ignorable="d"
+        Title="Tenki App" Height="500" Width="850"  AllowsTransparency="True" WindowStyle="None"
+        Background="Transparent"
+        ResizeMode="NoResize">
 
     <Window.DataContext>
-        <vm:WeatherViewModel/>
+        <viewmodel:WeatherViewModel/>
     </Window.DataContext>
 
     <Window.Resources>
-        <!-- アニメーション -->
-        <Storyboard x:Key="CardFadeInStoryboard">
-            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                             From="0" To="1" Duration="0:0:0.9"/>
-            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                             From="0.95" To="1" Duration="0:0:0.9"/>
-            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                             From="0.95" To="1" Duration="0:0:0.9"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+
+        <Storyboard x:Key="LoadAnimation">
+            <DoubleAnimation Storyboard.TargetName="MainGrid" 
+                             Storyboard.TargetProperty="Opacity" 
+                             From="0" To="1" Duration="0:0:0.5"/>
         </Storyboard>
     </Window.Resources>
 
-    <Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Border CornerRadius="25" 
+            Background="{Binding BackgroundBrush}" 
+            Margin="10">
 
-        <!-- タイトル -->
-        <TextBlock Text="現在の天気"
-                   FontSize="26"
-                   FontWeight="Bold"
-                   Foreground="#333"
-                   HorizontalAlignment="Center"
-                   Margin="0 0 0 20"/>
+        <Grid Opacity="0" x:Name="MainGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <!-- 都道府県選択 -->
-        <ComboBox Grid.Row="0" Margin="0 50 0 0"
-                  ItemsSource="{Binding PrefectureList}"
-                  SelectedItem="{Binding SelectedPrefecture}"
-                  HorizontalAlignment="Center"
-                  Width="200"/>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-        <!-- 天気カード -->
-        <Border Grid.Row="1"
-                x:Name="MainCard"
-                Background="White"
-                CornerRadius="25"
-                Padding="20"
-                Opacity="0"
-                RenderTransformOrigin="0.5,0.5">
-            <Border.RenderTransform>
-                <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
-            </Border.RenderTransform>
+                <Grid Grid.Row="0" MouseDown="Grid_MouseDown" Margin="0,5,0,0">
+                    <TextBlock Text="Tenki App" Foreground="White" 
+                               FontSize="16" FontWeight="Bold" 
+                               VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+                    <Button Content="X" Width="25" Height="25" 
+                            Background="Transparent" BorderBrush="Transparent"
+                            Foreground="White" FontWeight="Bold" 
+                            HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0"
+                            Click="CloseButton_Click"/>
+                </Grid>
 
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="0,0,0,10">
+                    <TextBlock Text="{Binding SelectedPrefecture}" Foreground="White" FontSize="24" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="{Binding DateText}" Foreground="White" FontSize="16" HorizontalAlignment="Center"/>
+                        <TextBlock Text=" / " Foreground="#C0C0C0" FontSize="16"/>
+                        <TextBlock Text="{Binding Time}" Foreground="White" FontSize="16" HorizontalAlignment="Center"/>
+                    </StackPanel>
 
-                <!-- 天気絵文字 -->
-                <TextBlock Text="{Binding WeatherEmoji}"
-                           FontSize="80"
-                           HorizontalAlignment="Center"
-                           Margin="0 0 0 10"/>
+                    <TextBlock Text="{Binding WeatherEmoji}" FontSize="100" HorizontalAlignment="Center" Margin="0,5,0,0"/>
 
-                <TextBlock Text="{Binding Time}"
-                           FontSize="16"
-                           Foreground="#666"
-                           Margin="0 0 0 15"
-                           HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                        <TextBlock Text="{Binding Temperature}" Foreground="White" FontSize="60" FontWeight="Bold"/>
+                        <TextBlock Text="℃" Foreground="White" FontSize="30" VerticalAlignment="Top" Margin="5,10,10,0"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding WeatherDescription}" Foreground="White" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
 
-                <!-- 気温 -->
-                <StackPanel Orientation="Horizontal" Margin="0 10">
-                    <TextBlock Text="🌡 気温：" FontSize="20"/>
-                    <TextBlock Text="{Binding Temperature}" FontSize="22" FontWeight="Bold"/>
-                    <TextBlock Text=" ℃" FontSize="20"/>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="130"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="120"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ComboBox ItemsSource="{Binding PrefectureList}"
+                              SelectedItem="{Binding SelectedPrefecture}"
+                              FontSize="16" Padding="8"
+                              Width="150" Height="30"/>
+                    <Button Content="🔍" Command="{Binding FetchWeatherCommand}"
+                            Width="30" Height="30" FontSize="16" Margin="10,0,0,0"
+                            Background="#4E54C8" Foreground="White" BorderBrush="Transparent"/>
                 </StackPanel>
 
-                <!-- 風速 -->
-                <StackPanel Orientation="Horizontal" Margin="0 10">
-                    <TextBlock Text="🌬 風速：" FontSize="20"/>
-                    <TextBlock Text="{Binding WindSpeed}" FontSize="22" FontWeight="Bold"/>
-                    <TextBlock Text=" m/s" FontSize="20"/>
-                </StackPanel>
+                <Border Grid.Row="1" Background="#30FFFFFF" Margin="20,10" CornerRadius="10">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Padding="10,0">
+                        <ItemsControl ItemsSource="{Binding HourlyForecast}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Width="70" Margin="5,0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Time}" Foreground="White" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="14"/>
+                                        <TextBlock Text="{Binding RainChance}" Foreground="#87CEFA" HorizontalAlignment="Center" FontSize="12" Margin="0,3" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Emoji}" FontSize="30" HorizontalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Temperature}" Foreground="White" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,3"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Border>
 
-                <!-- 湿度 -->
-                <StackPanel Orientation="Horizontal" Margin="0 10">
-                    <TextBlock Text="💧 湿度：" FontSize="20"/>
-                    <TextBlock Text="{Binding Humidity}" FontSize="22" FontWeight="Bold"/>
-                    <TextBlock Text=" %" FontSize="20"/>
-                </StackPanel>
+                <Grid Grid.Row="2" Width="380" Height="120" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                <!-- 更新ボタン -->
-                <Button Content="更新"
-                        Command="{Binding FetchWeatherCommand}"
-                        CommandParameter="{Binding SelectedPrefecture}"
-                        Background="#4A90E2"
-                        Foreground="White"
-                        Padding="12 6"
-                        FontWeight="Bold"
-                        Margin="20"
-                        BorderThickness="0"
-                        HorizontalAlignment="Center"/>
-            </StackPanel>
-        </Border>
-    </Grid>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="体感" Foreground="#E0E0E0" HorizontalAlignment="Center"/>
+                        <TextBlock Text="🌡️" FontSize="20" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding ApparentTemperature}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="℃" Foreground="#E0E0E0" FontSize="10" HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock Text="風向" Foreground="#E0E0E0" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding WindDirectionEmoji}" FontSize="20" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding WindSpeed}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="m/s" Foreground="#E0E0E0" FontSize="10" HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                        <TextBlock Text="湿度" Foreground="#E0E0E0" HorizontalAlignment="Center"/>
+                        <TextBlock Text="💧" FontSize="20" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Humidity}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="%" Foreground="#E0E0E0" FontSize="10" HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="3" VerticalAlignment="Center">
+                        <TextBlock Text="降水" Foreground="#E0E0E0" HorizontalAlignment="Center"/>
+                        <TextBlock Text="🌧️" FontSize="20" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Precipitation}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="mm" Foreground="#E0E0E0" FontSize="10" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+
+                <Border Grid.Row="3" Background="#30FFFFFF" Margin="20,10,20,20" CornerRadius="10" VerticalAlignment="Center">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="今日" Foreground="White" FontSize="14" HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                                <TextBlock Text="{Binding TempMax}" Foreground="#FFC107" FontWeight="Bold" FontSize="24"/>
+                                <TextBlock Text="/" Foreground="White" FontSize="24" Margin="5,0"/>
+                                <TextBlock Text="{Binding TempMin}" Foreground="#2196F3" FontWeight="Bold" FontSize="24"/>
+                                <TextBlock Text="℃" Foreground="White" FontSize="16" Margin="3,0,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="明日" Foreground="White" FontSize="14" HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
+                                <TextBlock Text="{Binding TomorrowWeatherEmoji}" FontSize="24" Margin="0,0,10,0"/>
+                                <TextBlock Text="{Binding TomorrowTempMax}" Foreground="#FFC107" FontWeight="Bold" FontSize="24"/>
+                                <TextBlock Text="/" Foreground="White" FontSize="24" Margin="5,0"/>
+                                <TextBlock Text="{Binding TomorrowTempMin}" Foreground="#2196F3" FontWeight="Bold" FontSize="24"/>
+                                <TextBlock Text="℃" Foreground="White" FontSize="16" Margin="3,0,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Border Grid.ColumnSpan="2" Background="#AA000000" CornerRadius="25"
+                    Visibility="{Binding IsBusy, Converter={StaticResource BoolToVis}}">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="🔄" FontSize="40" HorizontalAlignment="Center"/>
+                    <TextBlock Text="データを取得中..." Foreground="White" FontSize="18" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
 </Window>
