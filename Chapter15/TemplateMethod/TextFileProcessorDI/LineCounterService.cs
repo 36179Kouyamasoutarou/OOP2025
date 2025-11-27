@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 namespace TextFileProcessorDI {
     public class LineCounterService : ITextFileService {
-        public int _count;
-
+        private int _count;
         public void Initialize(string fname) {
             _count = 0;
         }
+
 
         public void Execute(string line) {
             _count++;
         }
 
+        
         public void Terminate() {
-            Console
+            Console.WriteLine($"{_count} 行");
         }
     }
 }

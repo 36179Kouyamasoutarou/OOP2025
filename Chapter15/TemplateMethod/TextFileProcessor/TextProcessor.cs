@@ -16,7 +16,7 @@ namespace TextFileProcessor {
             var lines = File.ReadLines(fileName);
             foreach (var line in lines) {
                 Execute(line);
-            }
+            }            
             Terminate();
         }
 
